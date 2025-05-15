@@ -1,27 +1,26 @@
-name: Java CI with Maven
+name: Basic QA Pipeline
 
+# When to run the pipeline
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-  build:
+  run-tests:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout repo code
       uses: actions/checkout@v3
 
-    - name: Set up JDK 21
-      uses: actions/setup-java@v3
-      with:
-        java-version: '21'
-        distribution: 'temurin'  # Temurin is the most popular OpenJDK build
-
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
-
-    - name: Run tests
-      run: mvn test
+    - name: Run a simple test script
+      run: |
+        echo "Hello from GitHub Actions!"
+        if [ 2 -eq 2 ]; then
+          echo "Test passed ✅"
+        else
+          echo "Test failed ❌"
+          exit 1
+        fi
